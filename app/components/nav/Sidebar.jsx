@@ -6,6 +6,7 @@ import {
   MenuItem,
   SubMenu,
   menuClasses,
+  sidebarClasses,
 } from "react-pro-sidebar";
 import { Box, IconButton, Typography } from "@mui/material";
 import { useState } from "react";
@@ -65,7 +66,15 @@ export default function SidebarComponent() {
   return (
     <Sidebar
       backgroundColor={colors.primary[400]}
-      rootStyles={{ borderRightWidth: 0 }}
+      rootStyles={{
+        borderRightWidth: 0,
+        [`.${sidebarClasses.container}`]: {
+          // overflow: "none",
+          // scrollbarWidth: "1px",
+          // scrollbarColor: [colors.blueAccent[500], "none"],
+          // -ms-overflow-style: none,
+        },
+      }}
       collapsed={collapsed}
     >
       <Box

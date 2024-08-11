@@ -2,44 +2,47 @@
 
 import { useTheme } from "@emotion/react";
 import { tokens } from "../theme";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import Header from "../components/Header";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
-import { mockDataContacts } from "../data/mockData";
+import { mockDataInvoices } from "../data/mockData";
+
+// Icons
+import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/adminPanelSettingsOutlined";
+import LockOpenOutlinedIcon from "@mui/icons-material/lockOpenOutlined";
+import SecurityOutlinedIcon from "@mui/icons-material/securityOutlined";
+import { BorderAll } from "@mui/icons-material";
 
 export default function Team() {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
   const mockDataTeamCol = [
-    { field: "id", headerName: "ID" },
-    { field: "registrarId", headerName: "Registrar ID" },
+    { field: "id", headerName: "ID", flex: 1 },
     {
       field: "name",
       headerName: "Name",
       flex: 1,
       cellClassName: "name-column--cell",
     },
-    {
-      field: "age",
-      headerName: "Age",
-      type: "number",
-      headerAlign: "left",
-      align: "left",
-    },
     { field: "phone", headerName: "Phone Number", flex: 1 },
     { field: "email", headerName: "Email", flex: 1 },
-    { field: "address", headerName: "Address" },
-    { field: "city", headerName: "City" },
-    { field: "zipCode", headerName: "Zip Code" },
+    {
+      field: "cost",
+      headerName: "Cost",
+      flex: 1,
+      renderCell: (params) => (
+        <Typography color={colors.greenAccent[500]}>
+          $ {params.row.cost}
+        </Typography>
+      ),
+    },
+    { field: "date", headerName: "Date", flex: 1 },
   ];
 
   return (
     <Box mt="20px">
-      <Header
-        title="Contacts"
-        subTitle="List of Contacts for Future Reference"
-      />
+      <Header title="Invoices" subTitle="List of Invoice Balances" />
       <Box
         mt="40px"
         height="75vh"
@@ -73,13 +76,16 @@ export default function Team() {
             "& .MuiButton-root": {
               color: "#ffffff",
             },
+            "& .MuiSvgIcon-root": {
+              color: colors.greenAccent[200],
+            },
           },
         }}
       >
         <DataGrid
-          rows={mockDataContacts}
+          checkboxSelection
+          rows={mockDataInvoices}
           columns={mockDataTeamCol}
-          slots={{ toolbar: GridToolbar }}
         />
       </Box>
     </Box>
